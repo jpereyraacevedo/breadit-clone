@@ -65,7 +65,7 @@ model Subreddit {
   post      Post[]
 
   creatorId   String?
-  Creator     User?          @relation("CreatedBy", fields: [userId], references: [id])
+  Creator     User?          @relation("CreatedBy", fields: [creatorId], references: [id])
   subscribers Subscription[]
 
   @@index([name])
@@ -106,7 +106,7 @@ model Comment {
   postId    String
 
   replyToId String?
-  replyTo   Comment? @relation("ReplyTo", fields: [replyToId], references: [id] onDelete: NoAction, onUpdate: NoAction)
+  replyTo   Comment?  @relation("ReplyTo", fields: [replyToId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   replies   Comment[] @relation("ReplyTo")
 
   votes     CommentVote[]
