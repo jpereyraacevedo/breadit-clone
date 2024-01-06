@@ -36,8 +36,8 @@ export async function POST(req: Request) {
       },
     })
 
-    if(subreddit) {
-      return new Response("You can't unsubscribe from your own subreddit", {status: 400})
+    if (subreddit) {
+      return new Response("You can't unsubscribe from your own subreddit", { status: 400 })
     }
 
     await db.subscription.delete({
@@ -55,6 +55,6 @@ export async function POST(req: Request) {
       return new Response("Invalid request data passed", { status: 422 })
     }
 
-    return new Response("Could not subscribe, please try again later", { status: 500 })
+    return new Response("Could not unsubscribe, please try again later", { status: 500 })
   }
 }
