@@ -19,6 +19,7 @@ export async function PATCH(req: Request) {
       return new Response("Unauthorized", { status: 401 })
     }
 
+    // If user has already voted
     const existingVote = await db.vote.findFirst({
       where: {
         userId: session.user.id,
@@ -41,6 +42,7 @@ export async function PATCH(req: Request) {
     }
 
     if (existingVote) {
+      // if vote type is the same as existing vote, delete the vote
       if (existingVote.type === voteType) {
         await db.vote.delete({
           where: {
@@ -52,6 +54,7 @@ export async function PATCH(req: Request) {
         })
         return new Response("OK")
       }
+
 
       await db.vote.update({
         where: {
